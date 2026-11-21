@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>エースを狙え！🎾 緊急アンケートすごろく</title>
+<meta name="description" content="メリちゃんと答えて、今日の参加を決めよう。エースを狙え！🎾グループの緊急アンケートすごろく。">
+<meta property="og:title" content="エースを狙え！🎾 緊急アンケートすごろく">
+<meta property="og:description" content="メリちゃんと答えて、今日の参加を決めよう。コートで会える？5マスで決めよう。">
+<meta property="og:image" content="https://shinyaoku-futurology.github.io/ace-survey-sugoroku/og.jpg">
+<meta property="og:url" content="https://shinyaoku-futurology.github.io/ace-survey-sugoroku/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="エースを狙え！🎾 緊急アンケートすごろく">
+<meta name="twitter:description" content="メリちゃんと答えて、今日の参加を決めよう。">
+<meta name="twitter:image" content="https://shinyaoku-futurology.github.io/ace-survey-sugoroku/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --court: #2d8a4e;
+  --court-deep: #1f6b3a;
+  --court-light: #3fa85f;
+  --navy: #0b2545;
+  --navy-soft: #163a5f;
+  --sky: #5eb8ef;
+  --sky-pale: #c8e8fa;
+  --ball: #d4ff4a;
+  --ball-deep: #b8e000;
+  --white: #ffffff;
+  --cream: #f4faf6;
+  --text: #0b2545;
+  --muted: #4a6a7a;
+  --line: rgba(11, 37, 69, 0.12);
+  --shadow: 0 12px 28px rgba(11, 37, 69, 0.18);
+  --radius: 18px;
+  --font: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { background: var(--court-deep); }
+body {
+  font-family: var(--font);
+  color: var(--text);
+  min-height: 100dvh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% -10%, var(--sky) 0%, transparent 55%),
+    linear-gradient(180deg, #7ec8f0 0%, var(--sky-pale) 18%, #e8f6ee 38%, var(--cream) 100%);
+}
+img { max-width: 100%; height: auto; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+.page {
+  width: min(520px, 100%);
+  margin: 0 auto;
+  padding: 16px 14px 40px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+
+.sky-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.9);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 5.2vw, 1.75rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  color: var(--navy);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+.sub {
+  margin: 6px 0 0;
+  color: var(--navy-soft);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+/* Merin companion */
+.merin-bar {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin: 16px 0 14px;
+  padding: 12px;
+  background: rgba(255,255,255,0.88);
+  border: 2px solid var(--court);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+.merin-pic {
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--ball);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #fff;
+}
+.bubble {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(180deg, #fff 0%, #f0faf3 100%);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.55;
+  min-height: 64px;
+}
+.bubble::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  bottom: 22px;
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 8px solid var(--line);
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  bottom: 23px;
+  width: 0; height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 7px solid #fff;
+}
+.bubble .who {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--court-deep);
+  margin-bottom: 2px;
+}
+
+/* Board */
+.board-wrap {
+  margin: 0 0 14px;
+  padding: 12px 10px 14px;
+  background: linear-gradient(180deg, var(--court-light) 0%, var(--court) 55%, var(--court-deep) 100%);
+  border-radius: 16px;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow), inset 0 0 0 2px rgba(255,255,255,0.25);
+  position: relative;
+  overflow: hidden;
+}
+.board-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 8px;
+  pointer-events: none;
+}
+.board-label {
+  text-align: center;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  position: relative;
+}
+.board {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+.cell {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  padding: 8px 2px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.25;
+  border: 2px solid transparent;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+}
+.cell .num {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 900;
+  margin-bottom: 2px;
+}
+.cell.done {
+  background: rgba(11,37,69,0.35);
+  opacity: 0.75;
+}
+.cell.now {
+  background: var(--ball);
+  color: var(--navy);
+  border-color: #fff;
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.cell.goal-cell.now {
+  background: #fff;
+  color: var(--court-deep);
+}
+
+.score-pill {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+.score-pill b {
+  color: var(--court-deep);
+  font-size: 1.05rem;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 20px 16px 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  position: relative;
+}
+.card::after {
+  content: "🎾";
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+.step-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+.prompt {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.5;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.choice {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f7fbf8 0%, #eef7f1 100%);
+  border: 2px solid rgba(45, 138, 78, 0.25);
+  color: var(--navy);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.choice:active {
+  transform: scale(0.98);
+  background: var(--ball);
+  border-color: var(--court);
+}
+.choice:hover {
+  border-color: var(--court);
+  background: #fffef0;
+}
+
+/* Start / Result */
+.start-hero, .result-box {
+  text-align: center;
+}
+.start-hero .big-merin,
+.result-box .big-merin {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--ball);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+.start-hero p, .result-box p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 16px 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--court-light) 0%, var(--court) 100%);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 16px rgba(31, 107, 58, 0.35);
+  border: 2px solid rgba(255,255,255,0.35);
+}
+.btn-primary:active { transform: scale(0.98); }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 2px solid var(--navy);
+}
+
+.result-title {
+  margin: 0 0 8px;
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1.35;
+}
+.result-title.yes { color: var(--court-deep); }
+.result-title.no { color: var(--navy-soft); }
+.result-score {
+  display: inline-block;
+  margin: 6px 0 12px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--ball);
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: var(--navy);
+}
+.result-note {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.foot {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.hidden { display: none !important; }
+
+@media (min-width: 480px) {
+  .merin-pic { width: 100px; height: 100px; }
+  .cell { font-size: 0.68rem; padding: 10px 4px; }
+  .cell .num { font-size: 1.05rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="sky-badge">エースを狙え！🎾 LINEグループ</div>
+  <h1>エースを狙え！🎾<br>緊急アンケートすごろく</h1>
+  <p class="sub">メリちゃんと答えて、今日の参加を決めよう</p>
+
+  <div class="merin-bar" id="merinBar">
+    <img class="merin-pic" id="merinPic" src="assets/merin_magic.jpg" alt="メリちゃん">
+    <div class="bubble"><span class="who">メリちゃん</span><span id="merinTalk">コートの風が気持ちいいね！いっしょにすごろくしよう🎾</span></div>
+  </div>
+
+  <div class="board-wrap" id="boardWrap">
+    <div class="board-label">コートすごろく</div>
+    <div class="board" id="board"></div>
+  </div>
+
+  <div class="score-pill" id="scorePill">
+    <span>やる気ポイント</span>
+    <b id="scoreVal">0</b>
+  </div>
+
+  <!-- START -->
+  <section class="card start-hero" id="screenStart">
+    <img class="big-merin" src="assets/merin_magic.jpg" alt="メリちゃん">
+    <p>ふりだしから⑤マスまで進んで、<br>ゴールで「今日は参加する／しない」が決まります。</p>
+    <p>ヒゲも、遅刻も、朝の時間も…本音でどうぞ🎾</p>
+    <button type="button" class="btn-primary" id="btnStart">スタート！</button>
+  </section>
+
+  <!-- PLAY -->
+  <section class="card hidden" id="screenPlay">
+    <span class="step-tag" id="stepTag">チェック 1 / 5</span>
+    <p class="prompt" id="prompt"></p>
+    <div class="choices" id="choices"></div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="card result-box hidden" id="screenResult">
+    <img class="big-merin" id="resultMerin" src="assets/merin_magic.jpg" alt="メリちゃん">
+    <p class="result-title" id="resultTitle"></p>
+    <div class="result-score" id="resultScore"></div>
+    <p class="result-note" id="resultNote"></p>
+    <p id="resultTalk" style="color:var(--muted);font-size:0.9rem;"></p>
+    <button type="button" class="btn-primary" id="btnAgain">もう一度</button>
+  </section>
+
+  <p class="foot">エースを狙え！🎾 ／ メリちゃんすごろく</p>
+</div>
+
+<script>
+(function () {
+  const STEPS = [
+    {
+      tag: "ヒゲチェック",
+      prompt: "一緒にコートに立つ相手が、アゴに青々としたヒゲを生やしていたら？",
+      merin: "ヒゲ…！？ ボールと一緒にヒゲも飛んできそう🎾 本音で教えて？",
+      img: "assets/merin_face.jpg",
+      choices: [
+        { label: "一緒にプレイしたくない（今日はパス寄り）", pts: -1 },
+        { label: "まあ剃ってくれるならOK", pts: 1 },
+        { label: "ヒゲも味のうち、むしろエース", pts: 2 }
+      ]
+    },
+    {
+      tag: "遅刻厳禁",
+      prompt: "コート入り時刻、遅れそうになったときの本音は？",
+      merin: "ネットの向こうから「遅れたらウォームアップ半分！」って聞こえるよ〜",
+      img: "assets/merin_blue.jpg",
+      choices: [
+        { label: "全力疾走で間に合わせる", pts: 2 },
+        { label: "5分くらいなら許される？", pts: 0 },
+        { label: "寝坊は運命", pts: -2 }
+      ]
+    },
+    {
+      tag: "朝は何時から？",
+      prompt: "朝の集合、何時からなら許せる？",
+      merin: "朝イチのコート、空気がうまいんだよね。何時ならコートに立てる？",
+      img: "assets/merin_pink.jpg",
+      choices: [
+        { label: "6時から", pts: 2 },
+        { label: "8時から", pts: 1 },
+        { label: "10時から（優雅に）", pts: -1 }
+      ]
+    },
+    {
+      tag: "土曜と日曜",
+      prompt: "やるならどっち？",
+      merin: "週末ダブルス、どっちの空がいい？ どっちでもいいってのもアリだよ！",
+      img: "assets/merin_magic.jpg",
+      choices: [
+        { label: "土曜", pts: 1 },
+        { label: "日曜", pts: 1 },
+        { label: "どっちでもいい（やる気満点）", pts: 2 },
+        { label: "どっちもキツい", pts: -2 }
+      ]
+    },
+    {
+      tag: "今日の本気度",
+      prompt: "いまの気持ちに一番近いのは？",
+      merin: "ラストチェック！ エースを狙う心拍、聞こえてる？💗",
+      img: "assets/merin_face.jpg",
+      choices: [
+        { label: "エースを狙うぞ", pts: 3 },
+        { label: "参加はする、エースは様子見", pts: 1 },
+        { label: "今日は応援席で", pts: -2 }
+      ]
+    }
+  ];
+
+  const BOARD_LABELS = ["ふりだし", "①ヒゲ", "②遅刻", "③朝", "④土日", "⑤本気", "あがり"];
+
+  let step = -1; // -1 start, 0..4 play, 5 result
+  let score = 0;
+
+  const el = {
+    board: document.getElementById("board"),
+    scoreVal: document.getElementById("scoreVal"),
+    merinPic: document.getElementById("merinPic"),
+    merinTalk: document.getElementById("merinTalk"),
+    screenStart: document.getElementById("screenStart"),
+    screenPlay: document.getElementById("screenPlay"),
+    screenResult: document.getElementById("screenResult"),
+    stepTag: document.getElementById("stepTag"),
+    prompt: document.getElementById("prompt"),
+    choices: document.getElementById("choices"),
+    resultTitle: document.getElementById("resultTitle"),
+    resultScore: document.getElementById("resultScore"),
+    resultNote: document.getElementById("resultNote"),
+    resultTalk: document.getElementById("resultTalk"),
+    resultMerin: document.getElementById("resultMerin"),
+    scorePill: document.getElementById("scorePill"),
+    boardWrap: document.getElementById("boardWrap"),
+    merinBar: document.getElementById("merinBar")
+  };
+
+  function renderBoard() {
+    // board index: 0=start, 1-5=steps, 6=goal
+    let highlight;
+    if (step < 0) highlight = 0;
+    else if (step >= STEPS.length) highlight = 6;
+    else highlight = step + 1;
+
+    el.board.innerHTML = BOARD_LABELS.map((lab, i) => {
+      let cls = "cell";
+      if (i === highlight) cls += " now";
+      else if (i < highlight) cls += " done";
+      if (i === 6) cls += " goal-cell";
+      const num = i === 0 ? "▶" : (i === 6 ? "🏁" : String(i));
+      return `<div class="${cls}"><span class="num">${num}</span>${lab}</div>`;
+    }).join("");
+  }
+
+  function setMerin(img, text) {
+    el.merinPic.src = img;
+    el.merinTalk.textContent = text;
+  }
+
+  function showScreen(name) {
+    el.screenStart.classList.toggle("hidden", name !== "start");
+    el.screenPlay.classList.toggle("hidden", name !== "play");
+    el.screenResult.classList.toggle("hidden", name !== "result");
+    const onResult = name === "result";
+    el.scorePill.classList.toggle("hidden", onResult);
+    // keep board always
+  }
+
+  function renderPlay() {
+    const s = STEPS[step];
+    el.stepTag.textContent = `${s.tag}　${step + 1} / ${STEPS.length}`;
+    el.prompt.textContent = s.prompt;
+    setMerin(s.img, s.merin);
+    el.choices.innerHTML = "";
+    s.choices.forEach((c) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.textContent = c.label;
+      btn.addEventListener("click", () => pick(c.pts));
+      el.choices.appendChild(btn);
+    });
+    el.scoreVal.textContent = String(score);
+    renderBoard();
+    showScreen("play");
+  }
+
+  function pick(pts) {
+    score += pts;
+    el.scoreVal.textContent = String(score);
+    step += 1;
+    if (step >= STEPS.length) {
+      showResult();
+    } else {
+      renderPlay();
+    }
+  }
+
+  function showResult() {
+    const join = score >= 3;
+    renderBoard();
+    showScreen("result");
+    el.resultScore.textContent = `やる気ポイント合計：${score}`;
+    if (join) {
+      el.resultTitle.textContent = "今日は参加する！";
+      el.resultTitle.className = "result-title yes";
+      el.resultNote.textContent = "コートで会おう🎾 ウォームアップ忘れずに！";
+      el.resultTalk.textContent = "メリちゃん「エースを狙え！ ボール、飛ぶよ〜！」";
+      el.resultMerin.src = "assets/merin_magic.jpg";
+      setMerin("assets/merin_magic.jpg", "やったね！ コートで待ってるよ🎾 エース決めちゃおう！");
+    } else {
+      el.resultTitle.textContent = "今日は参加しない（また今度）";
+      el.resultTitle.className = "result-title no";
+      el.resultNote.textContent = "無理しないのも大事。次の週末でリベンジ！";
+      el.resultTalk.textContent = "メリちゃん「休むのも戦略。また一緒にラリーしようね」";
+      el.resultMerin.src = "assets/merin_pink.jpg";
+      setMerin("assets/merin_pink.jpg", "大丈夫、また今度！ メリちゃんは応援席にいるよ📣");
+    }
+  }
+
+  function reset() {
+    step = -1;
+    score = 0;
+    el.scoreVal.textContent = "0";
+    setMerin("assets/merin_magic.jpg", "コートの風が気持ちいいね！いっしょにすごろくしよう🎾");
+    renderBoard();
+    showScreen("start");
+  }
+
+  document.getElementById("btnStart").addEventListener("click", () => {
+    step = 0;
+    score = 0;
+    renderPlay();
+  });
+  document.getElementById("btnAgain").addEventListener("click", reset);
+
+  reset();
+})();
+</script>
+</body>
+</html>
