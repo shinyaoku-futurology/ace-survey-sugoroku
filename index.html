@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>エースを狙え！🎾 緊急アンケートすごろく</title>
-<meta name="description" content="メリちゃんと答えて、今日の参加を決めよう。エースを狙え！🎾グループの緊急アンケートすごろく。">
+<meta name="description" content="メリンと答えて、今日の参加を決めよう。エースを狙え！🎾グループの緊急アンケートすごろく。">
 <meta property="og:title" content="エースを狙え！🎾 緊急アンケートすごろく">
-<meta property="og:description" content="メリちゃんと答えて、今日の参加を決めよう。コートで会える？5マスで決めよう。">
+<meta property="og:description" content="メリンと答えて、今日の参加を決めよう。5マス・100点満点、80点以上で花丸！">
 <meta property="og:image" content="https://shinyaoku-futurology.github.io/ace-survey-sugoroku/og.jpg">
 <meta property="og:url" content="https://shinyaoku-futurology.github.io/ace-survey-sugoroku/">
 <meta property="og:image:width" content="1200">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="エースを狙え！🎾 緊急アンケートすごろく">
-<meta name="twitter:description" content="メリちゃんと答えて、今日の参加を決めよう。">
+<meta name="twitter:description" content="メリンと答えて、今日の参加を決めよう。">
 <meta name="twitter:image" content="https://shinyaoku-futurology.github.io/ace-survey-sugoroku/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -231,22 +231,64 @@ h1 {
 }
 
 .score-pill {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 0 0 14px;
-  padding: 8px 14px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  font-size: 0.82rem;
-  font-weight: 600;
+  padding: 10px 16px 12px;
+  background: rgba(255,255,255,0.94);
+  border-radius: 18px;
+  border: 2px solid var(--court);
+  box-shadow: var(--shadow);
   color: var(--navy);
 }
-.score-pill b {
-  color: var(--court-deep);
-  font-size: 1.05rem;
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
+.score-label { font-size: 0.85rem; font-weight: 700; }
+.score-big {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--court-deep);
+  font-variant-numeric: tabular-nums;
+}
+.score-big small { font-size: 0.9rem; font-weight: 700; color: var(--muted); margin-left: 2px; }
+.meter {
+  position: relative;
+  height: 14px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: #e3efe7;
+  overflow: visible;
+}
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffd34a 0%, #b8e000 50%, #2d8a4e 100%);
+  transition: width 0.45s ease;
+}
+.meter-mark {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--navy);
+  opacity: 0.55;
+}
+.meter-mark span {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.meter-gap { height: 14px; }
+.score-pop { animation: pop 0.35s ease; }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
 
 /* Card */
 .card {
@@ -291,27 +333,48 @@ h1 {
 }
 .choice {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   text-align: left;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #f7fbf8 0%, #eef7f1 100%);
-  border: 2px solid rgba(45, 138, 78, 0.25);
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--c-bg, #f7fbf8);
+  border: 2px solid var(--c-line, rgba(45,138,78,0.3));
   color: var(--navy);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.45;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.4;
+  box-shadow: 0 3px 0 var(--c-line, rgba(45,138,78,0.3));
+  transition: transform 0.1s, box-shadow 0.1s;
   -webkit-tap-highlight-color: transparent;
 }
-.choice:active {
-  transform: scale(0.98);
-  background: var(--ball);
-  border-color: var(--court);
+.choice .emo {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  font-size: 1.7rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 2px var(--c-line, rgba(45,138,78,0.3));
 }
-.choice:hover {
-  border-color: var(--court);
-  background: #fffef0;
+.choice .txt { flex: 1; }
+.choice .pts {
+  flex: 0 0 auto;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--c-ink, var(--court-deep));
+  font-size: 0.78rem;
+  font-weight: 900;
+  border: 1.5px solid var(--c-line, rgba(45,138,78,0.3));
 }
+.choice:active { transform: translateY(3px); box-shadow: 0 0 0 var(--c-line); }
+.choice.c-hi  { --c-bg: #fff8d6; --c-line: #f0b400; --c-ink: #b06f00; }
+.choice.c-mid { --c-bg: #e6f6ff; --c-line: #5eb8ef; --c-ink: #1f6aa5; }
+.choice.c-low { --c-bg: #f3eef8; --c-line: #b9a3d6; --c-ink: #6a4a91; }
 
 /* Start / Result */
 .start-hero, .result-box {
@@ -383,6 +446,61 @@ h1 {
   font-size: 0.88rem;
   color: var(--navy);
 }
+.result-points {
+  margin: 4px 0 6px;
+  font-size: 4.2rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+.result-points small { font-size: 1.2rem; font-weight: 700; color: var(--muted); margin-left: 4px; }
+.result-points.high { color: #d7263d; }
+.mark-wrap {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  margin: 0 auto 4px;
+}
+.mark-wrap .big-merin {
+  position: absolute;
+  inset: 0;
+  margin: auto !important;
+  width: 120px !important;
+  height: 120px !important;
+}
+.mark-wrap.solo .big-merin { display: none; }
+.mark-wrap.plain { width: 150px; height: 150px; }
+.mark-wrap svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.mark-wrap svg path {
+  fill: none;
+  stroke: #e1251b;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.4s ease forwards;
+}
+.mark-wrap svg path.petals { animation-delay: 0.9s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.mark-badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.95rem;
+}
+.mark-badge.hana { background: #ffe3e0; color: #d7263d; }
+.mark-badge.maru { background: #fff2d6; color: #b06f00; }
+.mark-badge.none { background: #e8eef4; color: var(--navy-soft); }
+.judge-line { font-size: 0.78rem !important; color: var(--muted); }
 .result-note {
   margin: 0 0 4px;
   font-size: 0.95rem;
@@ -409,11 +527,11 @@ h1 {
 <div class="page">
   <div class="sky-badge">エースを狙え！🎾 LINEグループ</div>
   <h1>エースを狙え！🎾<br>緊急アンケートすごろく</h1>
-  <p class="sub">メリちゃんと答えて、今日の参加を決めよう</p>
+  <p class="sub">メリンと答えて、今日の参加を決めよう</p>
 
   <div class="merin-bar" id="merinBar">
-    <img class="merin-pic" id="merinPic" src="assets/merin_magic.jpg" alt="メリちゃん">
-    <div class="bubble"><span class="who">メリちゃん</span><span id="merinTalk">コートの風が気持ちいいね！いっしょにすごろくしよう🎾</span></div>
+    <img class="merin-pic" id="merinPic" src="assets/merin_magic.jpg" alt="メリン">
+    <div class="bubble"><span class="who">メリン</span><span id="merinTalk"></span></div>
   </div>
 
   <div class="board-wrap" id="boardWrap">
@@ -422,132 +540,143 @@ h1 {
   </div>
 
   <div class="score-pill" id="scorePill">
-    <span>やる気ポイント</span>
-    <b id="scoreVal">0</b>
+    <div class="score-row">
+      <span class="score-label">🎾 やる気ポイント</span>
+      <span class="score-big" id="scoreBig"><span id="scoreVal">0</span><small>/ 100点</small></span>
+    </div>
+    <div class="meter">
+      <div class="meter-fill" id="meterFill"></div>
+      <div class="meter-mark" style="left:60%"><span>60 参加</span></div>
+      <div class="meter-mark" style="left:80%"><span>80 花丸💮</span></div>
+    </div>
+    <div class="meter-gap"></div>
   </div>
 
   <!-- START -->
   <section class="card start-hero" id="screenStart">
-    <img class="big-merin" src="assets/merin_magic.jpg" alt="メリちゃん">
+    <img class="big-merin" src="assets/merin_magic.jpg" alt="メリン">
     <p>ふりだしから⑤マスまで進んで、<br>ゴールで「今日は参加する／しない」が決まります。</p>
-    <p>ヒゲも、遅刻も、朝の時間も…本音でどうぞ🎾</p>
+    <p><b>100点満点</b>で採点！ <b>60点以上で参加</b>、<b style="color:#d7263d">80点以上は花丸💮</b></p>
+    <p>ヒゲも、気分も、化粧のノリも…本音でどうぞ🎾<br><span style="font-size:0.8rem">答えはどこにも送られません</span></p>
     <button type="button" class="btn-primary" id="btnStart">スタート！</button>
   </section>
 
   <!-- PLAY -->
   <section class="card hidden" id="screenPlay">
-    <span class="step-tag" id="stepTag">チェック 1 / 5</span>
+    <span class="step-tag" id="stepTag">1 / 5</span>
     <p class="prompt" id="prompt"></p>
     <div class="choices" id="choices"></div>
   </section>
 
   <!-- RESULT -->
   <section class="card result-box hidden" id="screenResult">
-    <img class="big-merin" id="resultMerin" src="assets/merin_magic.jpg" alt="メリちゃん">
+    <div class="mark-wrap" id="markWrap">
+      <img class="big-merin" id="resultMerin" src="assets/merin_magic.jpg" alt="メリン">
+      <svg id="markSvg" viewBox="0 0 230 230" aria-hidden="true"></svg>
+    </div>
+    <div class="result-points" id="resultPoints">0<small>/ 100点</small></div>
+    <div class="mark-badge" id="markBadge"></div>
     <p class="result-title" id="resultTitle"></p>
-    <div class="result-score" id="resultScore"></div>
     <p class="result-note" id="resultNote"></p>
     <p id="resultTalk" style="color:var(--muted);font-size:0.9rem;"></p>
+    <p class="judge-line">60点以上で参加／80点以上で花丸</p>
     <button type="button" class="btn-primary" id="btnAgain">もう一度</button>
   </section>
 
-  <p class="foot">エースを狙え！🎾 ／ メリちゃんすごろく</p>
+  <p class="foot">エースを狙え！🎾 ／ メリンすごろく<br>答えは送信も保存もされません</p>
 </div>
 
 <script>
 (function () {
+  const YOUBI = ["日", "月", "火", "水", "木", "金", "土"][new Date().getDay()];
+  const MORNING = YOUBI === "月"
+    ? "今日は月曜日！ 週のはじまり、"
+    : `今日は${YOUBI}曜日！ `;
+
+  // 各マス最高20点 × 5マス = 100点満点
   const STEPS = [
     {
-      tag: "ヒゲチェック",
+      tag: "ヒゲ",
       prompt: "一緒にコートに立つ相手が、アゴに青々としたヒゲを生やしていたら？",
       merin: "ヒゲ…！？ ボールと一緒にヒゲも飛んできそう🎾 本音で教えて？",
       img: "assets/merin_face.jpg",
       choices: [
-        { label: "一緒にプレイしたくない（今日はパス寄り）", pts: -1 },
-        { label: "まあ剃ってくれるならOK", pts: 1 },
-        { label: "ヒゲも味のうち、むしろエース", pts: 2 }
+        { emo: "😎", label: "ヒゲも味のうち、むしろエース", pts: 20, tone: "hi" },
+        { emo: "🪒", label: "まあ剃ってくれるならOK", pts: 12, tone: "mid" },
+        { emo: "🙅", label: "一緒にプレイしたくない（今日はパス寄り）", pts: 4, tone: "low" }
       ]
     },
     {
-      tag: "遅刻厳禁",
-      prompt: "コート入り時刻、遅れそうになったときの本音は？",
-      merin: "ネットの向こうから「遅れたらウォームアップ半分！」って聞こえるよ〜",
+      tag: "今朝の気分",
+      prompt: "今朝の気分は？",
+      merin: () => `${MORNING}今朝の気分はどう？☀️`,
       img: "assets/merin_blue.jpg",
       choices: [
-        { label: "全力疾走で間に合わせる", pts: 2 },
-        { label: "5分くらいなら許される？", pts: 0 },
-        { label: "寝坊は運命", pts: -2 }
+        { emo: "☀️", label: "快晴！ 早くラケットを振りたい", pts: 20, tone: "hi" },
+        { emo: "⛅", label: "まあまあ。コーヒー1杯で上がる", pts: 12, tone: "mid" },
+        { emo: "🌧️", label: "布団から出たくない…", pts: 4, tone: "low" }
       ]
     },
     {
-      tag: "朝は何時から？",
-      prompt: "朝の集合、何時からなら許せる？",
-      merin: "朝イチのコート、空気がうまいんだよね。何時ならコートに立てる？",
+      tag: "体調",
+      prompt: "体調はどう？",
+      merin: "からだが資本！ 無理は禁物だよ。正直に〜",
       img: "assets/merin_pink.jpg",
       choices: [
-        { label: "6時から", pts: 2 },
-        { label: "8時から", pts: 1 },
-        { label: "10時から（優雅に）", pts: -1 }
+        { emo: "💪", label: "絶好調！ 全力で走れる", pts: 20, tone: "hi" },
+        { emo: "🙂", label: "ふつう。ゆるく打つなら大丈夫", pts: 12, tone: "mid" },
+        { emo: "🤧", label: "ちょっとしんどい", pts: 4, tone: "low" }
       ]
     },
     {
-      tag: "土曜と日曜",
-      prompt: "やるならどっち？",
-      merin: "週末ダブルス、どっちの空がいい？ どっちでもいいってのもアリだよ！",
+      tag: "化粧のノリは？",
+      prompt: "今朝の化粧のノリは？（日焼け止めでもOK）",
+      merin: "コート映えチェック✨ すっぴん派ももちろん大歓迎！",
       img: "assets/merin_magic.jpg",
       choices: [
-        { label: "土曜", pts: 1 },
-        { label: "日曜", pts: 1 },
-        { label: "どっちでもいい（やる気満点）", pts: 2 },
-        { label: "どっちもキツい", pts: -2 }
+        { emo: "✨", label: "バッチリ！ コート映え確定", pts: 20, tone: "hi" },
+        { emo: "😄", label: "すっぴんも味のうち", pts: 16, tone: "hi" },
+        { emo: "🧴", label: "日焼け止めだけは塗った", pts: 12, tone: "mid" },
+        { emo: "😵", label: "ノリ以前に、鏡を見てない", pts: 4, tone: "low" }
       ]
     },
     {
-      tag: "今日の本気度",
-      prompt: "いまの気持ちに一番近いのは？",
+      tag: "エースを狙うか？",
+      prompt: "エースを狙うか？",
       merin: "ラストチェック！ エースを狙う心拍、聞こえてる？💗",
       img: "assets/merin_face.jpg",
       choices: [
-        { label: "エースを狙うぞ", pts: 3 },
-        { label: "参加はする、エースは様子見", pts: 1 },
-        { label: "今日は応援席で", pts: -2 }
+        { emo: "🔥", label: "狙う！ サーブから決める", pts: 20, tone: "hi" },
+        { emo: "🙋", label: "参加はする、エースは様子見", pts: 12, tone: "mid" },
+        { emo: "📣", label: "今日は応援席で", pts: 0, tone: "low" }
       ]
     }
   ];
+  const MAX = 100;
+  const JOIN_LINE = 60;
+  const HANAMARU_LINE = 80;
 
-  const BOARD_LABELS = ["ふりだし", "①ヒゲ", "②遅刻", "③朝", "④土日", "⑤本気", "あがり"];
+  const BOARD_LABELS = ["ふりだし", "ヒゲ", "今朝の気分", "体調", "化粧のノリは？", "エースを狙うか？", "あがり"];
 
   let step = -1; // -1 start, 0..4 play, 5 result
   let score = 0;
 
+  const $ = (id) => document.getElementById(id);
   const el = {
-    board: document.getElementById("board"),
-    scoreVal: document.getElementById("scoreVal"),
-    merinPic: document.getElementById("merinPic"),
-    merinTalk: document.getElementById("merinTalk"),
-    screenStart: document.getElementById("screenStart"),
-    screenPlay: document.getElementById("screenPlay"),
-    screenResult: document.getElementById("screenResult"),
-    stepTag: document.getElementById("stepTag"),
-    prompt: document.getElementById("prompt"),
-    choices: document.getElementById("choices"),
-    resultTitle: document.getElementById("resultTitle"),
-    resultScore: document.getElementById("resultScore"),
-    resultNote: document.getElementById("resultNote"),
-    resultTalk: document.getElementById("resultTalk"),
-    resultMerin: document.getElementById("resultMerin"),
-    scorePill: document.getElementById("scorePill"),
-    boardWrap: document.getElementById("boardWrap"),
-    merinBar: document.getElementById("merinBar")
+    board: $("board"), scoreVal: $("scoreVal"), scoreBig: $("scoreBig"), meterFill: $("meterFill"),
+    merinPic: $("merinPic"), merinTalk: $("merinTalk"),
+    screenStart: $("screenStart"), screenPlay: $("screenPlay"), screenResult: $("screenResult"),
+    stepTag: $("stepTag"), prompt: $("prompt"), choices: $("choices"),
+    resultTitle: $("resultTitle"), resultPoints: $("resultPoints"), markBadge: $("markBadge"),
+    markSvg: $("markSvg"), resultNote: $("resultNote"), resultTalk: $("resultTalk"),
+    resultMerin: $("resultMerin"), scorePill: $("scorePill")
   };
 
   function renderBoard() {
-    // board index: 0=start, 1-5=steps, 6=goal
     let highlight;
     if (step < 0) highlight = 0;
     else if (step >= STEPS.length) highlight = 6;
     else highlight = step + 1;
-
     el.board.innerHTML = BOARD_LABELS.map((lab, i) => {
       let cls = "cell";
       if (i === highlight) cls += " now";
@@ -556,6 +685,16 @@ h1 {
       const num = i === 0 ? "▶" : (i === 6 ? "🏁" : String(i));
       return `<div class="${cls}"><span class="num">${num}</span>${lab}</div>`;
     }).join("");
+  }
+
+  function setScore(v, animate) {
+    el.scoreVal.textContent = String(v);
+    el.meterFill.style.width = `${Math.min(100, (v / MAX) * 100)}%`;
+    if (animate) {
+      el.scoreBig.classList.remove("score-pop");
+      void el.scoreBig.offsetWidth;
+      el.scoreBig.classList.add("score-pop");
+    }
   }
 
   function setMerin(img, text) {
@@ -567,78 +706,128 @@ h1 {
     el.screenStart.classList.toggle("hidden", name !== "start");
     el.screenPlay.classList.toggle("hidden", name !== "play");
     el.screenResult.classList.toggle("hidden", name !== "result");
-    const onResult = name === "result";
-    el.scorePill.classList.toggle("hidden", onResult);
-    // keep board always
+    el.scorePill.classList.toggle("hidden", name === "result");
   }
 
   function renderPlay() {
     const s = STEPS[step];
-    el.stepTag.textContent = `${s.tag}　${step + 1} / ${STEPS.length}`;
+    el.stepTag.textContent = `${step + 1}マス目 ${s.tag}　${step + 1} / ${STEPS.length}`;
     el.prompt.textContent = s.prompt;
-    setMerin(s.img, s.merin);
+    setMerin(s.img, typeof s.merin === "function" ? s.merin() : s.merin);
     el.choices.innerHTML = "";
     s.choices.forEach((c) => {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "choice";
-      btn.textContent = c.label;
+      btn.className = `choice c-${c.tone}`;
+      btn.innerHTML = `<span class="emo"></span><span class="txt"></span><span class="pts"></span>`;
+      btn.querySelector(".emo").textContent = c.emo;
+      btn.querySelector(".txt").textContent = c.label;
+      btn.querySelector(".pts").textContent = `+${c.pts}点`;
       btn.addEventListener("click", () => pick(c.pts));
       el.choices.appendChild(btn);
     });
-    el.scoreVal.textContent = String(score);
     renderBoard();
     showScreen("play");
   }
 
   function pick(pts) {
     score += pts;
-    el.scoreVal.textContent = String(score);
+    setScore(score, true);
     step += 1;
-    if (step >= STEPS.length) {
-      showResult();
+    if (step >= STEPS.length) showResult();
+    else renderPlay();
+  }
+
+  // 赤いぐるぐる花丸（うずまき＋花びら）
+  function spiralPath(cx, cy, r0, r1, turns) {
+    const n = 160;
+    let d = "";
+    for (let i = 0; i <= n; i++) {
+      const t = i / n;
+      const a = -Math.PI / 2 + t * turns * 2 * Math.PI;
+      const r = r0 + (r1 - r0) * t;
+      d += (i ? " L" : "M") + (cx + r * Math.cos(a)).toFixed(1) + " " + (cy + r * Math.sin(a)).toFixed(1);
+    }
+    return d;
+  }
+  function petalsPath(cx, cy, r, count, bump) {
+    let d = "";
+    for (let i = 0; i <= count; i++) {
+      const a = -Math.PI / 2 + (i / count) * 2 * Math.PI;
+      const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      if (i === 0) d += `M${x.toFixed(1)} ${y.toFixed(1)}`;
+      else d += ` A${bump} ${bump} 0 1 1 ${x.toFixed(1)} ${y.toFixed(1)}`;
+    }
+    return d;
+  }
+  function drawMark(kind) {
+    if (kind === "hana") {
+      el.markSvg.innerHTML =
+        `<path pathLength="1" stroke-width="7" d="${spiralPath(115, 115, 8, 78, 3.2)}"/>` +
+        `<path class="petals" pathLength="1" stroke-width="7" d="${petalsPath(115, 115, 86, 10, 24)}"/>`;
+    } else if (kind === "maru") {
+      el.markSvg.innerHTML = `<path pathLength="1" stroke-width="7" d="${spiralPath(115, 115, 80, 84, 1.05)}"/>`;
     } else {
-      renderPlay();
+      el.markSvg.innerHTML = "";
     }
   }
 
   function showResult() {
-    const join = score >= 3;
+    const pct = Math.round((score / MAX) * 100);
+    const join = pct >= JOIN_LINE;
+    const hana = pct >= HANAMARU_LINE;
     renderBoard();
     showScreen("result");
-    el.resultScore.textContent = `やる気ポイント合計：${score}`;
+    el.resultPoints.innerHTML = `${pct}<small>/ 100点</small>`;
+    el.resultPoints.classList.toggle("high", hana);
+    const kind = hana ? "hana" : (join ? "maru" : "none");
+    drawMark(kind);
+    const wrap = document.getElementById("markWrap");
+    wrap.classList.toggle("solo", kind === "hana");
+    wrap.classList.toggle("plain", kind === "none");
+    if (hana) {
+      el.markBadge.className = "mark-badge hana";
+      el.markBadge.textContent = "💮 花丸！ たいへんよくできました";
+    } else if (join) {
+      el.markBadge.className = "mark-badge maru";
+      el.markBadge.textContent = "⭕ よくできました";
+    } else {
+      el.markBadge.className = "mark-badge none";
+      el.markBadge.textContent = "🌙 今日はおやすみモード";
+    }
     if (join) {
       el.resultTitle.textContent = "今日は参加する！";
       el.resultTitle.className = "result-title yes";
       el.resultNote.textContent = "コートで会おう🎾 ウォームアップ忘れずに！";
-      el.resultTalk.textContent = "メリちゃん「エースを狙え！ ボール、飛ぶよ〜！」";
+      el.resultTalk.textContent = hana ? "メリン「花丸！ エースを狙え！ ボール、飛ぶよ〜！」" : "メリン「いい感じ！ コートで待ってるよ」";
       el.resultMerin.src = "assets/merin_magic.jpg";
       setMerin("assets/merin_magic.jpg", "やったね！ コートで待ってるよ🎾 エース決めちゃおう！");
     } else {
       el.resultTitle.textContent = "今日は参加しない（また今度）";
       el.resultTitle.className = "result-title no";
-      el.resultNote.textContent = "無理しないのも大事。次の週末でリベンジ！";
-      el.resultTalk.textContent = "メリちゃん「休むのも戦略。また一緒にラリーしようね」";
+      el.resultNote.textContent = "休むのも戦略。次でリベンジ！";
+      el.resultTalk.textContent = "メリン「無理しないのも大事。また一緒にラリーしようね」";
       el.resultMerin.src = "assets/merin_pink.jpg";
-      setMerin("assets/merin_pink.jpg", "大丈夫、また今度！ メリちゃんは応援席にいるよ📣");
+      setMerin("assets/merin_pink.jpg", "大丈夫、また今度！ メリンは応援席にいるよ📣");
     }
   }
 
   function reset() {
     step = -1;
     score = 0;
-    el.scoreVal.textContent = "0";
-    setMerin("assets/merin_magic.jpg", "コートの風が気持ちいいね！いっしょにすごろくしよう🎾");
+    setScore(0, false);
+    setMerin("assets/merin_magic.jpg", `${MORNING}いっしょにすごろくしよう🎾`);
     renderBoard();
     showScreen("start");
   }
 
-  document.getElementById("btnStart").addEventListener("click", () => {
+  $("btnStart").addEventListener("click", () => {
     step = 0;
     score = 0;
+    setScore(0, false);
     renderPlay();
   });
-  document.getElementById("btnAgain").addEventListener("click", reset);
+  $("btnAgain").addEventListener("click", reset);
 
   reset();
 })();
